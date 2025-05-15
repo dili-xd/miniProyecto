@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from .models import Productos
 from .serializers import ProductoSerializer
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListCreateAPIView,DestroyAPIView,UpdateAPIView
 from rest_framework.response import Response 
 from django.contrib.auth.models import User 
 from rest_framework.views import APIView
+
 # Create your views here.
 class CrearUsuario(APIView):
     def post(self,request):
@@ -38,3 +39,14 @@ class ValidarUsuarioView(APIView):
 class ProductoView(ListCreateAPIView):
     queryset = Productos.objects.all()
     serializer_class = ProductoSerializer
+
+
+class ProductoEliminarView(DestroyAPIView):
+    lookup_field = "id"
+    queryset = Productos.objects.all()
+    serializer_class = ProductoSerializer
+
+class ProductoEditarView(UpdateAPIView):
+    lookup_field = "id"
+    queryset = Productos.objects.all()
+    serializer_class = ProductoSerializer   
